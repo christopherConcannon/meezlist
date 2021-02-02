@@ -1,4 +1,4 @@
-export const listingData = [
+const listings = [
 	{
 		title       : 'listing one',
 		description :
@@ -84,3 +84,5 @@ export const listingData = [
 		price       : 100.99
 	}
 ]
+
+export default listings
