@@ -5,6 +5,8 @@ import connectDB from './config/db.js'
 
 dotenv.config({path:  '../.env'})
 
+connectDB()
+
 const app = express()
 
 app.use(express.urlencoded({ extended: false }));
