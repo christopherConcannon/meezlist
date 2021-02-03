@@ -1,11 +1,18 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { listListings } from '../actions/listingActions'
 import { Row, Col } from 'react-bootstrap'
 import Listing from '../components/Listing'
 
 const HomePage = () => {
 
-  const listings  = useSelector((state) => state.listings)
+  const dispatch = useDispatch()
+  const listingList  = useSelector((state) => state.listingList)
+  const { listings, loading, error } = listingList
+
+  useEffect(() => {
+    dispatch(listListings())
+  }, [ dispatch ])
 
   return (
     <React.Fragment>
