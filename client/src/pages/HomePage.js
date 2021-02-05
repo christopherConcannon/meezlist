@@ -5,6 +5,7 @@ import { Row, Col } from 'react-bootstrap'
 import Listing from '../components/Listing'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import Meta from '../components/Meta'
 
 const HomePage = () => {
 	const dispatch = useDispatch()
@@ -20,6 +21,7 @@ const HomePage = () => {
 
 	return (
 		<React.Fragment>
+      <Meta />
 			{loading ? (
 				<Loader />
 			) : error ? (
