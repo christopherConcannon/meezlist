@@ -12,15 +12,19 @@ const reducer = combineReducers({
   userLogin: userLoginReducer,
 })
 
-// const initialState = {
-// 	listings : listingData
-// }
+const userInfoFromStorage = localStorage.getItem('userInfo')
+  ? localStorage.getItem('userInfo')
+  : null
+
+const initialState = {
+	userLogin: { userInfo: userInfoFromStorage }
+}
 
 const middleware = [ thunk ]
 
 const store = createStore(
 	reducer,
-	// initialState,
+	initialState,
 	composeWithDevTools(applyMiddleware(...middleware))
 )
 
