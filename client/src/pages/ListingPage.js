@@ -29,7 +29,7 @@ const ListingPage = ({ match }) => {
 				<Loader />
 			) : error ? (
 				<Message variant='danger'>{error}</Message>
-			) : (
+			) : listing.images && (
 				<React.Fragment>
 					<Meta title={listing.title} />
 					<Row>
