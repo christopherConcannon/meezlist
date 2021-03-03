@@ -7,9 +7,9 @@ const typeDefs = gql`
     getListing(listingId: ID!): Listing
   }
 
-  type Mutation {
+  # type Mutation {
 
-  }
+  # }
   
   
   type Listing {
@@ -21,7 +21,7 @@ const typeDefs = gql`
     brand: String!
     category: String!
     location: String!
-    price: Number!
+    price: Int!
     createdAt: String!
     updatedAt: String!
   }

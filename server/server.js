@@ -5,8 +5,8 @@ import connectDB from './config/db.js'
 
 import { typeDefs, resolvers } from './graphql/index.js'
 
-const dotenv = require('dotenv')
-dotenv.config()
+import dotenv from 'dotenv'
+dotenv.config({ path: '../.env' })
 
 connectDB()
 
