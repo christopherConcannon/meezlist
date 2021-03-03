@@ -1,7 +1,10 @@
-const listingsResolvers = require('./listings')
-const usersResolvers = require('./users')
+import listingsResolvers from './listings.js'
+import usersResolvers from './users.js'
 
-module.exports = {
+// const listingsResolvers = require('./listings')
+// const usersResolvers = require('./users')
+
+const resolvers = {
 	Query    : {
 		...listingsResolvers.Query
 	},
@@ -10,3 +13,5 @@ module.exports = {
 		...listingsResolvers.Mutation
 	}
 }
+
+export default resolvers
