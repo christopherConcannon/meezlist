@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { listListingDetails } from '../actions/listingActions'
+import { listListingDetails } from '../utils/actions/listingActions'
 import { Row, Col, Image, ListGroup } from 'react-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'

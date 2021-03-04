@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useQuery } from '@apollo/react-hooks'
-import { listListings } from '../utils/actions/listingActions'
+import { listListings } from '../actions/listingActions'
 import { Row, Col } from 'react-bootstrap'
 import Listing from '../components/Listing'
 import Loader from '../components/Loader'
