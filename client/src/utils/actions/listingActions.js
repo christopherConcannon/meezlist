@@ -12,8 +12,6 @@ export const listListings = (data) => async (dispatch) => {
 	try {
 		dispatch({ type: LISTING_LIST_REQUEST })
 
-    // const { data } = await axios.get('/api/listings')
-    
 		dispatch({
 			type    : LISTING_LIST_SUCCESS,
 			payload : data
@@ -33,12 +31,10 @@ export const listListingDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: LISTING_DETAILS_REQUEST})
 
-    const { data } = await axios.get(`/api/listings/${id}`)
-
-    dispatch({
-      type: LISTING_DETAILS_SUCCESS,
-      payload: data
-    })
+    // dispatch({
+    //   type: LISTING_DETAILS_SUCCESS,
+    //   payload: data
+    // })
 
   } catch (error) {
     dispatch({
