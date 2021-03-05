@@ -12,21 +12,21 @@ const typeDefs = gql`
   
   
   type Listing {
-    id: ID!
-    user: User!
+    _id: ID!
+    # user: ID!
     title: String!
     description: String!
     images: [String]!
     brand: String!
-    category: String!
-    location: String!
-    price: Int!
-    createdAt: String!
-    updatedAt: String!
+    # category: String!
+    # location: String!
+    price: Float!
+    # createdAt: String!
+    # updatedAt: String!
   }
 
   type User {
-    id: ID!
+    _id: ID!
     name: String!
     email: String!
     password: String!

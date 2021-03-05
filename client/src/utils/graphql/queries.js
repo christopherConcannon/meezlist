@@ -3,17 +3,20 @@ import gql from 'graphql-tag'
 export const GET_LISTINGS = gql`
 	query {
 		getListings {
-			id
-			user
+			_id
+			# user {
+      #   id
+      #   name
+      # }
 			title
 			description
 			images
 			brand
-			category
-			location
+			# category
+			# location
 			price
-			createdAt
-			updatedAt
+			# createdAt
+			# updatedAt
 		}
 	}
 `

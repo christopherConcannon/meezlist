@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useQuery } from '@apollo/react-hooks'
+import { GET_LISTINGS } from '../utils/graphql/queries'
 import { listListings } from '../utils/actions/listingActions'
 import { Row, Col } from 'react-bootstrap'
 import Listing from '../components/Listing'
@@ -9,20 +10,25 @@ import Message from '../components/Message'
 import Meta from '../components/Meta'
 
 const HomePage = () => {
-	const dispatch = useDispatch()
+	const { data, loading: queryLoading, error: queryError } = useQuery(GET_LISTINGS)
+
 	const listingList = useSelector((state) => state.listingList)
 	const { listings, loading, error } = listingList
 
+	const dispatch = useDispatch()
+
 	useEffect(
 		() => {
-			dispatch(listListings())
+			if (data) {
+				dispatch(listListings(data.getListings))
+			}
 		},
-		[ dispatch ]
+		[ dispatch, data ]
 	)
 
 	return (
 		<React.Fragment>
-      <Meta />
+			<Meta />
 			{loading ? (
 				<Loader />
 			) : error ? (

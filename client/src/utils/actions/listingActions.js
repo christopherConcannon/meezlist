@@ -8,11 +8,11 @@ import {
   LISTING_DETAILS_FAIL
 } from '../constants/listingConstants'
 
-export const listListings = () => async (dispatch) => {
+export const listListings = (data) => async (dispatch) => {
 	try {
 		dispatch({ type: LISTING_LIST_REQUEST })
 
-    const { data } = await axios.get('/api/listings')
+    // const { data } = await axios.get('/api/listings')
     
 		dispatch({
 			type    : LISTING_LIST_SUCCESS,

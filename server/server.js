@@ -2,6 +2,7 @@ import path from 'path'
 import express from 'express'
 import { ApolloServer } from 'apollo-server-express'
 import connectDB from './config/db.js'
+import cors from 'cors'
 
 import { typeDefs, resolvers } from './graphql/index.js'
 
@@ -15,7 +16,9 @@ const app = express()
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
-
+// not sure? but fixes error
+// Access to fetch at 'http://localhost:3001/' from origin 'http://localhost:3000' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+app.use(cors())
 
 const server = new ApolloServer({
 	typeDefs,
