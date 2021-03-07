@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { useQuery } from '@apollo/react-hooks'
+import { useSelector, useDispatch } from 'react-redux'
 import { GET_LISTINGS } from '../utils/graphql/queries'
 import { listListings } from '../utils/actions/listingActions'
 import { Row, Col } from 'react-bootstrap'
@@ -23,7 +23,7 @@ const HomePage = () => {
 				dispatch(listListings(data.getListings))
 			}
 		},
-		[ dispatch, data ]
+		[  data, dispatch ]
 	)
 
 	return (

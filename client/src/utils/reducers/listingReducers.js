@@ -4,7 +4,8 @@ import {
 	LISTING_LIST_FAIL,
 	LISTING_DETAILS_REQUEST,
 	LISTING_DETAILS_FAIL,
-  LISTING_DETAILS_SUCCESS
+  LISTING_DETAILS_SUCCESS,
+  CLEAR_LISTING
 } from '../constants/listingConstants'
 
 export const listingListReducer = (state = { listings: [] }, action) => {
@@ -32,6 +33,8 @@ export const listingDetailsReducer = (state = { listing: {} }, action) => {
 			return { loading: false, listing: action.payload }
 		case LISTING_DETAILS_FAIL:
       return { loading: false, error: action.payload }
+    case CLEAR_LISTING:
+      return { loading: false, listing: {} }
     default:
       return state
 	}

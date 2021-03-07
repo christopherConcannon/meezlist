@@ -1,23 +1,41 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useQuery } from '@apollo/react-hooks'
 import { useDispatch, useSelector } from 'react-redux'
-import { listListingDetails } from '../utils/actions/listingActions'
+import { GET_LISTING } from '../utils/graphql/queries'
+import { listListingDetails, clearListing } from '../utils/actions/listingActions'
 import { Row, Col, Image, ListGroup } from 'react-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Meta from '../components/Meta'
 
 const ListingPage = ({ match }) => {
-	const dispatch = useDispatch()
+  const { data, loading: queryLoading, error: queryError } = useQuery(GET_LISTING, {
+    variables: {
+      listingId: match.params.id
+    }
+  })
 
-	const listingDetails = useSelector((state) => state.listingDetails)
+  const listingDetails = useSelector((state) => state.listingDetails)
 	const { listing, loading, error } = listingDetails
+  
+  const dispatch = useDispatch()
 
 	useEffect(
 		() => {
-			dispatch(listListingDetails(match.params.id))
+      if (data) {
+        dispatch(listListingDetails(data.getListing))
+      }
 		},
-		[ match, dispatch ]
+		[ data, match, dispatch ]
+	)
+
+   // clean up getListing state when component unmounts
+	useEffect(
+		() => {
+			return () => dispatch(clearListing())
+		},
+		[ dispatch ]
 	)
 
 	return (
