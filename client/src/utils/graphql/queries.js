@@ -4,7 +4,10 @@ export const GET_LISTINGS = gql`
 	query {
 		getListings {
 			_id
-			user 
+			user {
+        _id
+        name
+      }
 			title
 			description
 			images

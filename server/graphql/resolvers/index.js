@@ -8,7 +8,10 @@ const resolvers = {
 	// Mutation : {
 	// 	// ...usersResolvers.Mutation,
 	// 	// ...listingsResolvers.Mutation
-	// }
+	// },
+  Listing: {
+    ...listingsResolvers.Listing
+  }
 }
 
 export default resolvers

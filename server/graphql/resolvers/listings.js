@@ -1,9 +1,10 @@
 import { AuthenticationError } from 'apollo-server-express'
 
 import Listing from '../../models/Listing.js'
+import User from '../../models/User.js'
 
 const listingsResolvers = {
-	Query : {
+	Query   : {
 		async getListings() {
 			try {
 				const listings = await Listing.find()
@@ -12,7 +13,7 @@ const listingsResolvers = {
 				throw new Error(error)
 			}
 		},
-    async getListing(_, { listingId }) {
+		async getListing(_, { listingId }) {
 			try {
 				const listing = await Listing.findById(listingId)
 				if (listing) {
@@ -24,7 +25,22 @@ const listingsResolvers = {
 				throw new Error(err)
 			}
 		}
-  }
+	},
+	Listing : {
+		user : async (parent, args, context, info) => {
+			try {
+				const userId = parent.user
+				const user = await User.findOne({ _id: userId })
+
+				return {
+          ...user._doc,
+          password: null
+        }
+			} catch (err) {
+				throw new Error(err)
+			}
+		}
+	}
 }
 
 export default listingsResolvers

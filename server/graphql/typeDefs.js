@@ -30,7 +30,7 @@ const typeDefs = gql`
     _id: ID!
     name: String!
     email: String!
-    password: String!
+    password: String
     createdAt: String!
     updatedAt: String!
   }
