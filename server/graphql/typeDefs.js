@@ -14,15 +14,16 @@ const typeDefs = gql`
   type Listing {
     _id: ID!
     # user: ID!
+    user: User!
     title: String!
     description: String!
     images: [String]!
     brand: String!
-    # category: String!
-    # location: String!
+    category: String!
+    location: String!
     price: Float!
-    # createdAt: String!
-    # updatedAt: String!
+    createdAt: String!
+    updatedAt: String!
   }
 
   type User {
@@ -31,7 +32,6 @@ const typeDefs = gql`
     email: String!
     password: String!
     createdAt: String!
-    # createdAt: Date!  ???
     updatedAt: String!
   }
 `

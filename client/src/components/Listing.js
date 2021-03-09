@@ -1,4 +1,5 @@
 import React from 'react'
+// import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { Card } from 'react-bootstrap'
 
@@ -18,6 +19,8 @@ const Listing = ({ ...listing }) => {
 					<p>{listing.description}</p>
 				</Card.Text>
 				<Card.Text as='h3'>${listing.price}</Card.Text>
+        <Card.Text>created by: {listing.user}</Card.Text>
+				{/* <Card.Text as='h4'>created at: {moment(parseInt(listing.createdAt)).format("MMM D, YYYY")}</Card.Text> */}
 			</Card.Body>
 		</Card>
 	)

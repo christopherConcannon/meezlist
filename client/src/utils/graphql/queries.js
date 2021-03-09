@@ -4,19 +4,16 @@ export const GET_LISTINGS = gql`
 	query {
 		getListings {
 			_id
-			# user {
-      #   id
-      #   name
-      # }
+			user 
 			title
 			description
 			images
 			brand
-			# category
-			# location
+			category
+			location
 			price
-			# createdAt
-			# updatedAt
+			createdAt
+			updatedAt
 		}
 	}
 `
