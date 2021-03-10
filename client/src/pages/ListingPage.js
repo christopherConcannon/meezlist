@@ -10,27 +10,27 @@ import Loader from '../components/Loader'
 import Meta from '../components/Meta'
 
 const ListingPage = ({ match }) => {
-  const { data, loading: queryLoading, error: queryError } = useQuery(GET_LISTING, {
-    variables: {
-      listingId: match.params.id
-    }
-  })
+	const { data, loading: queryLoading, error: queryError } = useQuery(GET_LISTING, {
+		variables : {
+			listingId : match.params.id
+		}
+	})
 
-  const listingDetails = useSelector((state) => state.listingDetails)
+	const listingDetails = useSelector((state) => state.listingDetails)
 	const { listing, loading, error } = listingDetails
-  
-  const dispatch = useDispatch()
+
+	const dispatch = useDispatch()
 
 	useEffect(
 		() => {
-      if (data) {
-        dispatch(listListingDetails(data.getListing))
-      }
+			if (data) {
+				dispatch(listListingDetails(data.getListing))
+			}
 		},
 		[ data, match, dispatch ]
 	)
 
-   // clean up getListing state when component unmounts
+	// clean up getListing state when component unmounts
 	useEffect(
 		() => {
 			return () => dispatch(clearListing())
@@ -47,26 +47,35 @@ const ListingPage = ({ match }) => {
 				<Loader />
 			) : error ? (
 				<Message variant='danger'>{error}</Message>
-			) : listing.images && (
-				<React.Fragment>
-					<Meta title={listing.title} />
-					<Row>
-						<Col md={6}>
-							{/* pass fluid prop to keep image in it's container */}
-							<Image src={listing.images[0]} alt={listing.title} fluid />
-						</Col>
-						<Col md={6}>
-							{/* Add the flush variant to remove outer borders and rounded corners */}
-							<ListGroup variant='flush'>
-								<ListGroup.Item>
-									<h3>{listing.title}</h3>
-								</ListGroup.Item>
-								<ListGroup.Item>Price: ${listing.price}</ListGroup.Item>
-								<ListGroup.Item>Description: {listing.description}</ListGroup.Item>
-							</ListGroup>
-						</Col>
-					</Row>
-				</React.Fragment>
+			) : (
+				listing.images && (
+					<React.Fragment>
+						<Meta title={listing.title} />
+						<Row>
+							<Col md={6}>
+								<Row>
+									{/* pass fluid prop to keep image in it's container */}
+									<Image src={listing.images[0]} alt={listing.title} fluid />
+								</Row>
+								<div className='listing-img-thumbs d-flex justify-content-start mt-3'>
+									<Image src={listing.images[0]} alt={listing.title} className='mr-3' />
+									<Image src={listing.images[0]} alt={listing.title} className='mr-3' />
+									<Image src={listing.images[0]} alt={listing.title} className='mr-3' />
+								</div>
+							</Col>
+							<Col md={6}>
+								{/* Add the flush variant to remove outer borders and rounded corners */}
+								<ListGroup variant='flush'>
+									<ListGroup.Item>
+										<h3>{listing.title}</h3>
+									</ListGroup.Item>
+									<ListGroup.Item>Price: ${listing.price}</ListGroup.Item>
+									<ListGroup.Item>Description: {listing.description}</ListGroup.Item>
+								</ListGroup>
+							</Col>
+						</Row>
+					</React.Fragment>
+				)
 			)}
 		</React.Fragment>
 	)

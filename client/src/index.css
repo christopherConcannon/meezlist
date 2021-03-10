@@ -5,3 +5,12 @@ body {
 .navbar {
   text-transform: none;
 }
+
+.listing-img-thumbs {
+  margin-left: -15px;
+}
+
+.listing-img-thumbs img{
+  height: 100px;
+  width: 100px;
+}
