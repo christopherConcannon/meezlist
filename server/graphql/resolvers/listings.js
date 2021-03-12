@@ -3,7 +3,7 @@ import { AuthenticationError } from 'apollo-server-express'
 import Listing from '../../models/Listing.js'
 import User from '../../models/User.js'
 
-const listingsResolvers = {
+const listingResolvers = {
 	Query   : {
 		async getListings() {
 			try {
@@ -33,9 +33,9 @@ const listingsResolvers = {
 				const user = await User.findOne({ _id: userId })
 
 				return {
-          ...user._doc,
-          password: null
-        }
+					...user._doc,
+					password : null
+				}
 			} catch (err) {
 				throw new Error(err)
 			}
@@ -43,4 +43,4 @@ const listingsResolvers = {
 	}
 }
 
-export default listingsResolvers
+export default listingResolvers

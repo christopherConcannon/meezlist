@@ -1,17 +1,17 @@
-import listingsResolvers from './listings.js'
+import listingResolvers from './listings.js'
 // import usersResolvers from './users.js'
 
 const resolvers = {
-	Query    : {
-		...listingsResolvers.Query
+	Query   : {
+		...listingResolvers.Query
 	},
 	// Mutation : {
 	// 	// ...usersResolvers.Mutation,
-	// 	// ...listingsResolvers.Mutation
+	// 	// ...listingResolvers.Mutation
 	// },
-  Listing: {
-    ...listingsResolvers.Listing
-  }
+	Listing : {
+		...listingResolvers.Listing
+	}
 }
 
 export default resolvers

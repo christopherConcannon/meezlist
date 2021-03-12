@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Form, Button, Row, Col } from 'react-bootstrap'
+import { useMutation } from '@apollo/react-hooks'
 import { useDispatch, useSelector } from 'react-redux'
+import { REGISTER_USER } from '../utils/graphql/mutations'
 import { register } from '../utils/actions/userActions'
+import Auth from '../utils/auth'
+
+import { Form, Button, Row, Col } from 'react-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
@@ -14,13 +18,15 @@ const RegisterScreen = ({ history }) => {
 	const [ confirmPassword, setConfirmPassword ] = useState('')
 	const [ message, setMessage ] = useState(null)
 
+	const [ registerUser, { error: registerError } ] = useMutation(REGISTER_USER)
+
 	const dispatch = useDispatch()
 
 	const userRegister = useSelector((state) => state.userRegister)
 
-	const { userInfo, loading, error} = userRegister
+	const { userInfo, loading, error } = userRegister
 
-  // when userInfo has been added to global state (which depends on it having been added to db) redirect to HomeScreen
+	// when userInfo has been added to global state (which depends on it having been added to db) redirect to HomeScreen
 	useEffect(
 		() => {
 			if (userInfo) {
@@ -30,13 +36,25 @@ const RegisterScreen = ({ history }) => {
 		[ history, userInfo ]
 	)
 
-	const submitHandler = (e) => {
+	const submitHandler = async (e) => {
 		e.preventDefault()
 		if (password !== confirmPassword) {
 			setMessage('Passwords do not match')
 		} else {
-			// dispatch register
-			dispatch(register(name, email, password))
+			try {
+				const mutationResponse = await registerUser({
+					variables : {
+						name,
+						email,
+						password
+					}
+				})
+				const token = mutationResponse.data.registerUser.token
+				const userId = mutationResponse.data.registerUser.user._id
+				Auth.login(userId, token)
+			} catch (err) {
+				console.log(err)
+			}
 		}
 	}
 
@@ -90,8 +108,7 @@ const RegisterScreen = ({ history }) => {
 
 			<Row className='py-3'>
 				<Col>
-					Have an Account?{' '}
-					<Link to={'/login'}>Login</Link>
+					Have an Account? <Link to={'/login'}>Login</Link>
 				</Col>
 			</Row>
 		</FormContainer>

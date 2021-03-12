@@ -6,9 +6,9 @@ const typeDefs = gql`
     getListing(listingId: ID!): Listing
   }
 
-  # type Mutation {
-
-  # }
+  type Mutation {
+    register(registerInput: RegisterInput): User!
+  }
   
   
   type Listing {
@@ -33,6 +33,12 @@ const typeDefs = gql`
     password: String
     createdAt: String!
     updatedAt: String!
+  }
+
+  input RegisterInput {
+    name: String!
+    email: String!
+    password: String!
   }
 `
 
