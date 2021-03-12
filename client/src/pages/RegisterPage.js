@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useMutation } from '@apollo/react-hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { REGISTER_USER } from '../utils/graphql/mutations'
-import { register } from '../utils/actions/userActions'
+import { registerUser } from '../utils/actions/userActions'
 import Auth from '../utils/auth'
 
 import { Form, Button, Row, Col } from 'react-bootstrap'
@@ -18,7 +18,7 @@ const RegisterScreen = ({ history }) => {
 	const [ confirmPassword, setConfirmPassword ] = useState('')
 	const [ message, setMessage ] = useState(null)
 
-	const [ registerUser, { error: registerError } ] = useMutation(REGISTER_USER)
+	const [ register, { error: registerError } ] = useMutation(REGISTER_USER)
 
 	const dispatch = useDispatch()
 
@@ -42,15 +42,15 @@ const RegisterScreen = ({ history }) => {
 			setMessage('Passwords do not match')
 		} else {
 			try {
-				const mutationResponse = await registerUser({
+				const mutationResponse = await register({
 					variables : {
 						name,
 						email,
 						password
 					}
 				})
-				const token = mutationResponse.data.registerUser.token
-				const userId = mutationResponse.data.registerUser.user._id
+				const token = mutationResponse.data.register.token
+				const userId = mutationResponse.data.register._id
 				Auth.login(userId, token)
 			} catch (err) {
 				console.log(err)

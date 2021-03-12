@@ -1,14 +1,14 @@
 import listingResolvers from './listings.js'
-// import usersResolvers from './users.js'
+import userResolvers from './users.js'
 
 const resolvers = {
 	Query   : {
 		...listingResolvers.Query
 	},
-	// Mutation : {
-	// 	// ...usersResolvers.Mutation,
-	// 	// ...listingResolvers.Mutation
-	// },
+	Mutation : {
+		...userResolvers.Mutation,
+		// ...listingResolvers.Mutation
+	},
 	Listing : {
 		...listingResolvers.Listing
 	}
