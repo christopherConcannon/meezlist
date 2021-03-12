@@ -49,9 +49,10 @@ const RegisterScreen = ({ history }) => {
 						password
 					}
 				})
-				const token = mutationResponse.data.register.token
-				const userId = mutationResponse.data.register._id
-				Auth.login(userId, token)
+        dispatch(registerUser(mutationResponse.data.register))
+				// const token = mutationResponse.data.register.token
+				// const userId = mutationResponse.data.register._id
+				// Auth.login(userId, token)
 			} catch (err) {
 				console.log(err)
 			}

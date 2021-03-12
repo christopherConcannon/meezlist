@@ -7,7 +7,6 @@ const userResolvers = {
 	Query    : {},
 	Mutation : {
 		async register(_, { registerInput: { name, email, password } }) {
-      console.log('register resolver');
 			try {
 				// verify no other user with that email
 				const userExists = await User.findOne({ email })

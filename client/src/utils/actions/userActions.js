@@ -9,24 +9,29 @@ import {
 	USER_LOGOUT,
 } from '../constants/userConstants'
 
-export const registerUser = (name, email, password) => async (dispatch) => {
+export const registerUser = (data) => async (dispatch) => {
 	try {
 		dispatch({
 			type : USER_REGISTER_REQUEST
 		})
 
-		// dispatch({
-		// 	type    : USER_REGISTER_SUCCESS,
-		// 	payload : data
-		// })
+		dispatch({
+			type    : USER_REGISTER_SUCCESS,
+			payload : data
+		})
 
 		// immediately login so userLogin.userInfo is avail for Header
-		// dispatch({
-		// 	type    : USER_LOGIN_SUCCESS,
-		// 	payload : data
-    // })
+		dispatch({
+			type    : USER_LOGIN_SUCCESS,
+			payload : data
+    })
+
+    const token = data.token
+    const userId = data._id
+
+    localStorage.setItem('user_id', userId);
+		localStorage.setItem('token', token);
     
-		// localStorage.setItem('userInfo', JSON.stringify(data))
 	} catch (error) {
 		dispatch({
 			type    : USER_REGISTER_FAIL,
