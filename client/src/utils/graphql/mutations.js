@@ -5,12 +5,14 @@ export const REGISTER_USER = gql`
 		$name: String!
 		$email: String!
 		$password: String!
+    $confirmPassword: String!
 	) {
 		register(
 			registerInput: {
 				name: $name
 				email: $email
 				password: $password
+				confirmPassword: $confirmPassword
 			}
 		) {
 			_id
