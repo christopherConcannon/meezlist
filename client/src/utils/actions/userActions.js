@@ -27,6 +27,10 @@ export const registerUser = (data) => async (dispatch) => {
 			payload : data
     })
 
+    dispatch({
+      type: USER_REGISTER_CLEAR 
+    })
+
     const token = data.token
     const userId = data._id
 
@@ -42,12 +46,6 @@ export const registerUser = (data) => async (dispatch) => {
 					: error.message
 		})
 	}
-}
-
-export const clearUserRegister = () => async (dispatch) => {
-  dispatch({
-    type: USER_REGISTER_CLEAR 
-  })
 }
 
 export const login = (email, password) => async (dispatch) => {

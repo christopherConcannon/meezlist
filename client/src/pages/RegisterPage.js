@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useMutation } from '@apollo/react-hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { REGISTER_USER } from '../utils/graphql/mutations'
-import { registerUser, clearUserRegister } from '../utils/actions/userActions'
+import { registerUser } from '../utils/actions/userActions'
 import Auth from '../utils/auth'
 
 import { Form, Button, Row, Col } from 'react-bootstrap'
@@ -46,10 +46,6 @@ const RegisterScreen = ({ history }) => {
 		},
 		[ history, userInfo ]
 	)
-
-  useEffect(() => {
-    return () => dispatch(clearUserRegister())
-  }, [dispatch]) 
 
 	const submitHandler = async (e) => {
 		e.preventDefault()
