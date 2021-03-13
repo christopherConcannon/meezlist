@@ -17,7 +17,7 @@ const listingSchema = mongoose.Schema(
 		},
 		images      : [
 			{
-				type     : String,
+				type : String,
 				required : true
 			}
 		],
@@ -30,13 +30,13 @@ const listingSchema = mongoose.Schema(
 			required : true
 		},
 		location    : {
-			type     : String,
+			type : String,
 			required : true
 		},
 		price       : {
-			type     : Number,
+			type    : Number,
 			required : true,
-			default  : 0
+			default : 0
 		}
 	},
 	{

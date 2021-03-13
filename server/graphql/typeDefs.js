@@ -10,6 +10,7 @@ const typeDefs = gql`
   type Mutation {
     register(registerInput: RegisterInput): User!
     login(email: String!, password: String!): User!
+    createListing(createListingInput: CreateListingInput): Listing!
   }
   
   
@@ -43,6 +44,16 @@ const typeDefs = gql`
     email: String!
     password: String!
     confirmPassword: String!
+  }
+
+  input CreateListingInput {
+    title: String!
+    description: String!
+    # images: [String]!
+    brand: String!
+    category: String!
+    # location: String!
+    # price: Float!
   }
 `
 

@@ -4,7 +4,6 @@ import { useMutation } from '@apollo/react-hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { REGISTER_USER } from '../utils/graphql/mutations'
 import { addUser } from '../utils/actions/userActions'
-import Auth from '../utils/auth'
 
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import Message from '../components/Message'

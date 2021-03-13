@@ -8,7 +8,7 @@ const resolvers = {
 	},
 	Mutation : {
 		...userResolvers.Mutation,
-		// ...listingResolvers.Mutation
+		...listingResolvers.Mutation
 	},
 	Listing : {
 		...listingResolvers.Listing
