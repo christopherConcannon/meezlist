@@ -5,7 +5,16 @@ import { validateRegisterInput, validateLoginInput } from '../../utils/validator
 import User from '../../models/User.js'
 
 const userResolvers = {
-	Query    : {},
+	Query    : {
+		getUsers : async () => {
+			try {
+				const users = await User.find({})
+				return users
+			} catch (err) {
+				throw new Error(err)
+			}
+		}
+	},
 	Mutation : {
 		async register(_, { registerInput: { name, email, password, confirmPassword } }) {
 			const { valid, errors } = validateRegisterInput(

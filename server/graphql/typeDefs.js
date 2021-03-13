@@ -4,6 +4,7 @@ const typeDefs = gql`
   type Query {
     getListings: [Listing!]!
     getListing(listingId: ID!): Listing
+    getUsers: [User!]!
   }
 
   type Mutation {
@@ -31,7 +32,7 @@ const typeDefs = gql`
     name: String!
     email: String!
     password: String
-    token: String!
+    token: String
     createdAt: String!
     updatedAt: String!
   }
