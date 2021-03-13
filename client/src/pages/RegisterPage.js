@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useMutation } from '@apollo/react-hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { REGISTER_USER } from '../utils/graphql/mutations'
-import { registerUser } from '../utils/actions/userActions'
+import { addUser } from '../utils/actions/userActions'
 import Auth from '../utils/auth'
 
 import { Form, Button, Row, Col } from 'react-bootstrap'
@@ -54,7 +54,7 @@ const RegisterScreen = ({ history }) => {
 		} else {
 			try {
 				const mutationResponse = await register()
-				dispatch(registerUser(mutationResponse.data.register))
+				dispatch(addUser(mutationResponse.data.register))
 			} catch (err) {
 				console.log(err)
 			}

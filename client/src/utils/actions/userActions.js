@@ -1,16 +1,16 @@
 import axios from 'axios'
-import { 
-  USER_REGISTER_REQUEST,
+import {
+	USER_REGISTER_REQUEST,
 	USER_REGISTER_SUCCESS,
-  USER_REGISTER_FAIL,
-  USER_REGISTER_CLEAR,
-  USER_LOGIN_REQUEST,
+	USER_REGISTER_FAIL,
+	USER_REGISTER_CLEAR,
+	USER_LOGIN_REQUEST,
 	USER_LOGIN_SUCCESS,
 	USER_LOGIN_FAIL,
-	USER_LOGOUT,
+	USER_LOGOUT
 } from '../constants/userConstants'
 
-export const registerUser = (data) => async (dispatch) => {
+export const addUser = (data) => async (dispatch) => {
 	try {
 		dispatch({
 			type : USER_REGISTER_REQUEST
@@ -25,18 +25,17 @@ export const registerUser = (data) => async (dispatch) => {
 		dispatch({
 			type    : USER_LOGIN_SUCCESS,
 			payload : data
-    })
+		})
 
-    dispatch({
-      type: USER_REGISTER_CLEAR 
-    })
+		dispatch({
+			type : USER_REGISTER_CLEAR
+		})
 
-    const token = data.token
-    const userId = data._id
+		const token = data.token
+		const userId = data._id
 
-    localStorage.setItem('user_id', userId);
-		localStorage.setItem('token', token);
-    
+		localStorage.setItem('user_id', userId)
+		localStorage.setItem('token', token)
 	} catch (error) {
 		dispatch({
 			type    : USER_REGISTER_FAIL,
@@ -48,28 +47,22 @@ export const registerUser = (data) => async (dispatch) => {
 	}
 }
 
-export const login = (email, password) => async (dispatch) => {
+export const login = (data) => async (dispatch) => {
 	try {
 		dispatch({
 			type : USER_LOGIN_REQUEST
 		})
 
-    // // when we're sending data, we want to send the Content-Type in the headers
-		// const config = {
-		// 	headers : {
-		// 		'Content-Type' : 'application/json'
-		// 	}
-		// }
+		dispatch({
+			type    : USER_LOGIN_SUCCESS,
+			payload : data
+		})
 
-		// const { data } = await axios.post('/api/users/login', { email, password }, config)
+		const token = data.token
+		const userId = data._id
 
-		// dispatch({
-		// 	type    : USER_LOGIN_SUCCESS,
-		// 	payload : data
-		// })
-
-    // when user is authenticated add to local storage so info will persist on subsequent visits
-		// localStorage.setItem('userInfo', JSON.stringify(data))
+		localStorage.setItem('user_id', userId)
+		localStorage.setItem('token', token)
 	} catch (error) {
 		dispatch({
 			type    : USER_LOGIN_FAIL,

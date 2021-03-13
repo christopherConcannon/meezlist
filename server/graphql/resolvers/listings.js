@@ -5,7 +5,7 @@ import User from '../../models/User.js'
 
 const listingResolvers = {
 	Query   : {
-		async getListings() {
+		getListings : async () => {
 			try {
 				const listings = await Listing.find()
 				return listings
@@ -13,7 +13,7 @@ const listingResolvers = {
 				throw new Error(error)
 			}
 		},
-		async getListing(_, { listingId }) {
+		getListing  : async (_, { listingId }) => {
 			try {
 				const listing = await Listing.findById(listingId)
 				if (listing) {

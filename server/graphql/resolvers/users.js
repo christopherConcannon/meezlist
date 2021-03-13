@@ -16,7 +16,10 @@ const userResolvers = {
 		}
 	},
 	Mutation : {
-		async register(_, { registerInput: { name, email, password, confirmPassword } }) {
+		register : async (
+			_,
+			{ registerInput: { name, email, password, confirmPassword } }
+		) => {
 			const { valid, errors } = validateRegisterInput(
 				name,
 				email,
@@ -50,6 +53,23 @@ const userResolvers = {
 				}
 			} catch (err) {
 				throw new Error(err)
+			}
+		},
+		login    : async (_, { email, password }) => {
+			try {
+				const user = await User.findOne({ email })
+
+				if (user && (await user.matchPassword(password))) {
+					const token = generateToken(user._id)
+
+					return {
+						_id   : user._id,
+						...user._doc,
+						token
+					}
+				}
+			} catch (err) {
+				throw new AuthenticationError('login failed, invalid email or password')
 			}
 		}
 	}
