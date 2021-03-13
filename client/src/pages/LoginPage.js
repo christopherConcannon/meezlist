@@ -17,16 +17,16 @@ const LoginScreen = ({ history }) => {
 	const [ password, setPassword ] = useState('')
   const [ errors, setErrors ] = useState({})
 
-  const [ loginUser, { error } ] = useMutation(LOGIN_USER, {
+  const [ loginUser ] = useMutation(LOGIN_USER, {
     variables: {
       email,
 			password
     }, 
+    // alternative implementation
     // onError(err) {
 		// 	setErrors(err.graphQLErrors[0].extensions.exception.errors)
 		// }
   })
-
 
 	const dispatch = useDispatch()
 
@@ -48,11 +48,11 @@ const LoginScreen = ({ history }) => {
 
 	const submitHandler = async (e) => {
 		e.preventDefault()
+
     try {
       const mutationResponse = await loginUser()
       dispatch(login(mutationResponse.data.login))
     } catch (err) {
-      console.log(err.graphQLErrors[0].extensions.exception.errors)
       setErrors(err.graphQLErrors[0].extensions.exception.errors)
     }
 	}
@@ -60,8 +60,7 @@ const LoginScreen = ({ history }) => {
 	return (
 		<FormContainer>
 			<h1>Sign In</h1>
-      {/* {error && <Message variant='danger'>{error}</Message>} */}
-      {errors && Object.keys(errors).length > 0 &&
+      {Object.keys(errors).length > 0 &&
 				Object.values(errors).map((value) => (
 					<Message key={value} variant='danger'>
 						{value}

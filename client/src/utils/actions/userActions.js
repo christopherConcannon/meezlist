@@ -34,8 +34,7 @@ export const addUser = (data) => async (dispatch) => {
 		const token = data.token
 		const userId = data._id
 
-		localStorage.setItem('user_id', userId)
-		localStorage.setItem('token', token)
+		localStorage.setItem('userInfo', JSON.stringify({userId, token}))
 	} catch (error) {
 		dispatch({
 			type    : USER_REGISTER_FAIL,
@@ -61,8 +60,7 @@ export const login = (data) => async (dispatch) => {
 		const token = data.token
 		const userId = data._id
 
-		localStorage.setItem('user_id', userId)
-		localStorage.setItem('token', token)
+		localStorage.setItem('userInfo', JSON.stringify({userId, token}))
 	} catch (error) {
 		dispatch({
 			type    : USER_LOGIN_FAIL,
@@ -75,7 +73,6 @@ export const login = (data) => async (dispatch) => {
 }
 
 export const logout = () => (dispatch) => {
-	localStorage.removeItem('user_id')
-	localStorage.removeItem('token')
+	localStorage.removeItem('userInfo')
 	dispatch({ type: USER_LOGOUT })
 }
