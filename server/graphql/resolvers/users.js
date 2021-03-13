@@ -30,13 +30,18 @@ const userResolvers = {
 				throw new UserInputError('Errors', { errors })
 			}
 
-			try {
-				// verify no other user with that email
-				const userExists = await User.findOne({ email })
-				if (userExists) {
-					throw new Error('User already exists')
-				}
+			// verify no other user with that email
+			const userExists = await User.findOne({ email })
+			if (userExists) {
+				throw new UserInputError('Registration failed', {
+					// this object will be used on the frontend to display errors on the form
+					errors : {
+						message : 'User already exists.'
+					}
+				})
+			}
 
+			try {
 				const user = await User.create({
 					name,
 					email,
@@ -52,24 +57,41 @@ const userResolvers = {
 					token
 				}
 			} catch (err) {
-				throw new Error(err)
+				throw new UserInputError('Registration failed', {
+					// this object will be used on the frontend to display errors on the form
+					errors : {
+						message : 'Registration failed, please try again.'
+					}
+				})
 			}
 		},
 		login    : async (_, { email, password }) => {
+			const { valid, errors } = validateLoginInput(email, password)
+			if (!valid) {
+				throw new UserInputError('Errors', { errors })
+			}
 			try {
 				const user = await User.findOne({ email })
 
-				if (user && (await user.matchPassword(password))) {
-					const token = generateToken(user._id)
+				const isMatched = await user.matchPassword(password)
 
-					return {
-						_id   : user._id,
-						...user._doc,
-						token
-					}
+				if (!isMatched) {
+					throw new Error
+				}
+        
+				const token = generateToken(user._id)
+
+				return {
+					_id   : user._id,
+					...user._doc,
+					token
 				}
 			} catch (err) {
-				throw new AuthenticationError('login failed, invalid email or password')
+				throw new UserInputError('Login failed', {
+					errors : {
+						message : 'Wrong credentials'
+					}
+				})
 			}
 		}
 	}

@@ -15,8 +15,9 @@ const LoginScreen = ({ history }) => {
   // local state to control form
 	const [ email, setEmail ] = useState('')
 	const [ password, setPassword ] = useState('')
+  const [ errors, setErrors ] = useState({})
 
-  const [ loginUser ] = useMutation(LOGIN_USER, {
+  const [ loginUser, { error } ] = useMutation(LOGIN_USER, {
     variables: {
       email,
 			password
@@ -26,11 +27,12 @@ const LoginScreen = ({ history }) => {
 		// }
   })
 
+
 	const dispatch = useDispatch()
 
 	const userLogin = useSelector((state) => state.userLogin)
 
-	const { userInfo, loading, error } = userLogin
+	const { userInfo, loading } = userLogin
 
 
   // if user is logged in, we want to redirect to HomePage
@@ -50,14 +52,21 @@ const LoginScreen = ({ history }) => {
       const mutationResponse = await loginUser()
       dispatch(login(mutationResponse.data.login))
     } catch (err) {
-      console.log(err)
+      console.log(err.graphQLErrors[0].extensions.exception.errors)
+      setErrors(err.graphQLErrors[0].extensions.exception.errors)
     }
 	}
 
 	return (
 		<FormContainer>
 			<h1>Sign In</h1>
-      {error && <Message variant='danger'>{error}</Message>}
+      {/* {error && <Message variant='danger'>{error}</Message>} */}
+      {errors && Object.keys(errors).length > 0 &&
+				Object.values(errors).map((value) => (
+					<Message key={value} variant='danger'>
+						{value}
+					</Message>
+				))}
       {loading && <Loader />}
 			<Form onSubmit={submitHandler}>
 				<Form.Group controlId='email'>

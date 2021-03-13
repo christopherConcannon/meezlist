@@ -49,6 +49,8 @@ const RegisterScreen = ({ history }) => {
 
 	const submitHandler = async (e) => {
 		e.preventDefault()
+    setErrors({})
+    setMessage(null)
 		if (password !== confirmPassword) {
 			setMessage('Passwords do not match')
 		} else {
