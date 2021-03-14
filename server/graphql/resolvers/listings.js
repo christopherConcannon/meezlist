@@ -1,4 +1,5 @@
 import { AuthenticationError } from 'apollo-server-express'
+import { checkAuth } from '../../middleware/authMiddleware.js'
 
 import Listing from '../../models/Listing.js'
 import User from '../../models/User.js'
@@ -28,10 +29,14 @@ const listingResolvers = {
 	},
 	Mutation : {
 		createListing : async (_, { createListingInput }, context) => {
+      const user = await checkAuth(context)
+      console.log('user from resolver', user);
+      
+
 			const { title, description, brand, category } = createListingInput
 			try {
 				const listing = new Listing({
-					user        : '6019caed6e9c1f7bb4a53cf5',
+					user        : user._id,
 					title       : title || 'Sample title',
 					description : description || 'Sample description',
 					images      : [ '/images/listing1_1.jpg' ],

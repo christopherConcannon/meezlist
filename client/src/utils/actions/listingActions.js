@@ -1,4 +1,3 @@
-import axios from 'axios'
 import {
 	LISTING_LIST_REQUEST,
 	LISTING_LIST_SUCCESS,
