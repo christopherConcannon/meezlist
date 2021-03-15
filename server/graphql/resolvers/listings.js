@@ -30,9 +30,7 @@ const listingResolvers = {
 	Mutation : {
 		createListing : async (_, { createListingInput }, context) => {
       const user = await checkAuth(context)
-      console.log('user from resolver', user);
       
-
 			const { title, description, brand, category } = createListingInput
 			try {
 				const listing = new Listing({

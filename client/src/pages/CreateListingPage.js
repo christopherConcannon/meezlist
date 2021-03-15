@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-
+import { useMutation } from '@apollo/react-hooks'
+import { CREATE_LISTING } from '../utils/graphql/mutations'
 
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import Message from '../components/Message'
@@ -16,12 +17,27 @@ const CreateListingPage
 	const [ message, setMessage ] = useState(null)
 	const [ errors, setErrors ] = useState({})
 
-
-
+  const [ createListing ] = useMutation(CREATE_LISTING, {
+    variables: {
+      title, 
+      description,
+      brand,
+      category
+    },
+		onError(err) {
+      console.log(err);
+			setErrors(err.graphQLErrors[0].extensions.exception.errors)
+		}
+  })
 
 	const submitHandler = async (e) => {
 		e.preventDefault()
-
+    try { 
+      const mutationResponse = await createListing()
+      console.log(mutationResponse.data.createListing);
+    } catch(err) {
+      console.log(err);
+    }
 	}
 
 	return (
