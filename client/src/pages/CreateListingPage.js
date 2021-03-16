@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useMutation } from '@apollo/react-hooks'
+import { useDispatch, useSelector } from 'react-redux'
 import { CREATE_LISTING } from '../utils/graphql/mutations'
-
+import { addListing, clearListing } from '../utils/actions/listingActions'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -30,11 +31,39 @@ const CreateListingPage
 		}
   })
 
+  const dispatch = useDispatch()
+
+  const listingAdd = useSelector((state) => state.listingAdd)
+
+  const { listing, loading } = listingAdd
+
+  useEffect(
+		() => {
+      // listing is truthy only if user is logged in and redux has updated the store with listing.  whenever that value changes we want to run this function
+			if (listing) {
+				history.push('/')
+			}
+		},
+		[ history, listing ]
+	)
+
+  
+	useEffect(
+		() => {
+			return () => dispatch(clearListing())
+		},
+		[ dispatch ]
+	)
+
+
+  
+
 	const submitHandler = async (e) => {
 		e.preventDefault()
     try { 
       const mutationResponse = await createListing()
-      console.log(mutationResponse.data.createListing);
+      console.log(mutationResponse.data.createListing)
+      dispatch(addListing(mutationResponse.data.createListing))
     } catch(err) {
       console.log(err);
     }

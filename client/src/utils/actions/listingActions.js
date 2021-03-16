@@ -5,7 +5,10 @@ import {
   LISTING_DETAILS_REQUEST,
   LISTING_DETAILS_SUCCESS,
   LISTING_DETAILS_FAIL,
-  CLEAR_LISTING
+  LISTING_CREATE_REQUEST,
+  LISTING_CREATE_SUCCESS,
+  LISTING_CREATE_FAIL,
+  LISTING_CLEAR
 } from '../constants/listingConstants'
 
 export const listListings = (data) => async (dispatch) => {
@@ -48,5 +51,25 @@ export const listListingDetails = (data) => async (dispatch) => {
 }
 
 export const clearListing = () => async (dispatch) => {
-  dispatch({ type: CLEAR_LISTING})
+  dispatch({ type: LISTING_CLEAR})
 }
+
+export const addListing = (data) => async (dispatch) => {
+  try {
+    dispatch({ type: LISTING_CREATE_REQUEST})
+
+    dispatch({
+      type: LISTING_CREATE_SUCCESS,
+      payload: data
+    })
+
+  } catch (error) {
+    dispatch({
+			type    : LISTING_CREATE_FAIL,
+			payload :
+				error.response && error.response.data.message
+					? error.response.data.message
+					: error.message
+		})
+  }
+} 

@@ -5,7 +5,10 @@ import {
 	LISTING_DETAILS_REQUEST,
 	LISTING_DETAILS_FAIL,
   LISTING_DETAILS_SUCCESS,
-  CLEAR_LISTING
+	LISTING_CREATE_REQUEST,
+	LISTING_CREATE_FAIL,
+  LISTING_CREATE_SUCCESS,
+  LISTING_CLEAR
 } from '../constants/listingConstants'
 
 export const listingListReducer = (state = { listings: [] }, action) => {
@@ -33,9 +36,29 @@ export const listingDetailsReducer = (state = { listing: {} }, action) => {
 			return { loading: false, listing: action.payload }
 		case LISTING_DETAILS_FAIL:
       return { loading: false, error: action.payload }
-    case CLEAR_LISTING:
+    case LISTING_CLEAR:
       return { loading: false, listing: {} }
     default:
       return state
 	}
 }
+
+export const listingCreateReducer = (state = {}, action) => {
+	switch (action.type) {
+		case LISTING_CREATE_REQUEST:
+			return { loading: true }
+		case LISTING_CREATE_SUCCESS:
+			return {
+				loading  : false,
+				listing : action.payload
+			}
+		case LISTING_CREATE_FAIL:
+			return { loading: false, error: action.payload }
+    case LISTING_CLEAR:
+      return { loading: false, listing: {} }
+
+		default:
+			return state
+	}
+}
+
