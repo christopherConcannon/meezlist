@@ -35,9 +35,24 @@ export const validateLoginInput = (email, password) => {
 	}
 	if (password.trim() === '') {
 		errors.password = 'Password must not be empty'
-  }
-  
-  return {
+	}
+
+	return {
+		errors,
+		valid  : Object.keys(errors).length < 1
+	}
+}
+
+export const validateListingInput = (title, description) => {
+	const errors = {}
+	if (title.trim() === '') {
+		errors.title = 'Title must not be empty'
+	}
+	if (description.trim() === '') {
+		errors.description = 'Description must not be empty'
+	}
+
+	return {
 		errors,
 		valid  : Object.keys(errors).length < 1
 	}

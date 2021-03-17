@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { useMutation } from '@apollo/react-hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { CREATE_LISTING } from '../utils/graphql/mutations'
@@ -15,7 +14,6 @@ const CreateListingPage
   const [ description, setDescription ] = useState('')
   const [ brand, setBrand ] = useState('')
   const [ category, setCategory ] = useState('')
-	const [ message, setMessage ] = useState(null)
 	const [ errors, setErrors ] = useState({})
 
   const [ createListing ] = useMutation(CREATE_LISTING, {
@@ -72,6 +70,13 @@ const CreateListingPage
 	return (
 		<FormContainer>
 			<h1>add new listing</h1>
+      {Object.keys(errors).length > 0 &&
+				Object.values(errors).map((value) => (
+					<Message key={value} variant='danger'>
+						{value}
+					</Message>
+				))}
+			{loading && <Loader />}
 			<Form onSubmit={submitHandler}>
 				<Form.Group controlId='title'>
 					<Form.Label>title</Form.Label>
@@ -79,7 +84,6 @@ const CreateListingPage
 						type='text'
 						placeholder='Enter title'
 						value={title}
-						// error={errors.title ? 1 : 0}
 						onChange={(e) => setTitle(e.target.value)}
 					/>
 				</Form.Group>
@@ -89,7 +93,6 @@ const CreateListingPage
 						type='textarea'
 						placeholder='Enter description'
 						value={description}
-						// error={errors.description ? 1 : 0}
 						onChange={(e) => setDescription(e.target.value)}
 					/>
 				</Form.Group>
@@ -99,7 +102,6 @@ const CreateListingPage
 						type='text'
 						placeholder='Enter brand'
 						value={brand}
-						// error={errors.brand ? 1 : 0}
 						onChange={(e) => setBrand(e.target.value)}
 					/>
 				</Form.Group>
@@ -109,7 +111,6 @@ const CreateListingPage
 						type='text'
 						placeholder='Enter category'
 						value={category}
-						// error={errors.category ? 1 : 0}
 						onChange={(e) => setCategory(e.target.value)}
 					/>
 				</Form.Group>

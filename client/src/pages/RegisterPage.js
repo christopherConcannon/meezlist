@@ -81,7 +81,6 @@ const RegisterScreen = ({ history }) => {
 						type='text'
 						placeholder='Enter name'
 						value={name}
-						error={errors.name ? 1 : 0}
 						onChange={(e) => setName(e.target.value)}
 					/>
 				</Form.Group>
@@ -91,7 +90,6 @@ const RegisterScreen = ({ history }) => {
 						type='email'
 						placeholder='Enter email'
 						value={email}
-						error={errors.email ? 1 : 0}
 						onChange={(e) => setEmail(e.target.value)}
 					/>
 				</Form.Group>
@@ -101,7 +99,6 @@ const RegisterScreen = ({ history }) => {
 						type='password'
 						placeholder='Enter password'
 						value={password}
-						error={errors.password ? 1 : 0}
 						onChange={(e) => setPassword(e.target.value)}
 					/>
 				</Form.Group>
@@ -111,7 +108,6 @@ const RegisterScreen = ({ history }) => {
 						type='password'
 						placeholder='Confirm password'
 						value={confirmPassword}
-						error={errors.confirmPassword ? 1 : 0}
 						onChange={(e) => setConfirmPassword(e.target.value)}
 					/>
 				</Form.Group>

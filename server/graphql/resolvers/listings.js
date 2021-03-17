@@ -1,5 +1,6 @@
-import { AuthenticationError } from 'apollo-server-express'
+import { AuthenticationError, UserInputError } from 'apollo-server-express'
 import { checkAuth } from '../../middleware/authMiddleware.js'
+import { validateListingInput } from '../../utils/validators.js'
 
 import Listing from '../../models/Listing.js'
 import User from '../../models/User.js'
@@ -29,9 +30,16 @@ const listingResolvers = {
 	},
 	Mutation : {
 		createListing : async (_, { createListingInput }, context) => {
+      // authorize user - check logged in
       const user = await checkAuth(context)
       
+      // validate inputs
 			const { title, description, brand, category } = createListingInput
+      const { valid, errors } = validateListingInput(title, description)
+      if (!valid) {
+				throw new UserInputError('Errors', { errors })
+			}
+
 			try {
 				const listing = new Listing({
 					user        : user._id,
