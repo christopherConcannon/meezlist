@@ -10,7 +10,7 @@ import Message from '../components/Message'
 import Meta from '../components/Meta'
 
 const HomePage = () => {
-	const { data, loading: queryLoading, error: queryError } = useQuery(GET_LISTINGS)
+	const { data } = useQuery(GET_LISTINGS)
 
 	const listingList = useSelector((state) => state.listingList)
 	const { listings, loading, error } = listingList

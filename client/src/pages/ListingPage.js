@@ -10,7 +10,7 @@ import Loader from '../components/Loader'
 import Meta from '../components/Meta'
 
 const ListingPage = ({ match }) => {
-	const { data, loading: queryLoading, error: queryError } = useQuery(GET_LISTING, {
+	const { data } = useQuery(GET_LISTING, {
 		variables : {
 			listingId : match.params.id
 		}
