@@ -24,7 +24,6 @@ const CreateListingPage
       category
     },
 		onError(err) {
-      console.log(err);
 			setErrors(err.graphQLErrors[0].extensions.exception.errors)
 		}
   })
@@ -60,7 +59,6 @@ const CreateListingPage
 		e.preventDefault()
     try { 
       const mutationResponse = await createListing()
-      console.log(mutationResponse.data.createListing)
       dispatch(addListing(mutationResponse.data.createListing))
     } catch(err) {
       console.log(err);
@@ -86,7 +84,15 @@ const CreateListingPage
 						value={title}
 						onChange={(e) => setTitle(e.target.value)}
 					/>
-				</Form.Group>
+				</Form.Group>  
+				<Form.Group controlId='image'>
+					<Form.Label>image</Form.Label>
+          <Form.File 
+          label="Upload image"
+          custom
+        />
+				</Form.Group>  
+ 
 				<Form.Group controlId='description'>
 					<Form.Label>description</Form.Label>
 					<Form.Control
