@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useMutation } from '@apollo/react-hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { CREATE_LISTING } from '../utils/graphql/mutations'
 import { addListing, clearListing } from '../utils/actions/listingActions'
 import { Form, Button } from 'react-bootstrap'
+import bsCustomFileInput from 'bs-custom-file-input';
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
@@ -34,6 +35,13 @@ const CreateListingPage
 
   const { listing, loading } = listingAdd
 
+  const imgUploadInput = useRef(null)
+
+  useEffect(() => {
+    // plugin to display file name in bs custom file input
+    bsCustomFileInput.init()
+  }, [])
+
   useEffect(
 		() => {
       // listing is truthy only if user is logged in and redux has updated the store with listing.  whenever that value changes we want to run this function
@@ -58,6 +66,9 @@ const CreateListingPage
 	const submitHandler = async (e) => {
 		e.preventDefault()
     try { 
+      var files = imgUploadInput.current.files
+      const file = files[0]
+      console.log('img file', file)
       const mutationResponse = await createListing()
       dispatch(addListing(mutationResponse.data.createListing))
     } catch(err) {
@@ -90,6 +101,7 @@ const CreateListingPage
           <Form.File 
           label="Upload image"
           custom
+          ref={imgUploadInput}
         />
 				</Form.Group>  
  
